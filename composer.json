@@ -1,0 +1,15 @@
+{
+    "name": "paulo-ricardo/pessl-instruments-task",
+    "description": "This is my task for the SW position in Pessl Instruments",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "paulo-ricardo",
+            "email": "paulo@actio.net.br"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.1"
+    }
+}

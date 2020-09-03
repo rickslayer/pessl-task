@@ -10,7 +10,7 @@ use Metos\Helpers\DataParser;
  */
 class PayloadService
 {
-    public static function getPayload() :string
+    public static function getPayload() :array
     {
         $data = [
             "ddtsgAFwAG8AAJ0DQAPdCdcImgfmDMIMBA2lAaEBrAHdA8cD7QM2BzAHIgEZAQA=",
@@ -136,14 +136,16 @@ class PayloadService
             "L1nXgAFwAG8AAJ0DQAOiCQAAmgejBpsGrAZSA00DVgOdAJkApQCmBaUFHAAbAAA=",
         ];
 
-        $random_index = rand(0, count($data));
+        
 
-        return $data[$random_index];
+        return $data;
     }
 
     public static function PrettyPayload() 
     {
-        $payload = self::getPayload();
+        $payloads = self::getPayload();
+        $random_index = rand(0, count($payloads));
+        $payload = $payloads[$random_index];
         $header = DataParser::parseHeader(substr(base64_decode($payload),0,14));
         $data   = DataParser::parseData(substr(base64_decode($payload),14));
         /**
@@ -155,7 +157,8 @@ class PayloadService
             "original_payload" => $payload,
             "header" => $header,
             "data" => $data,
-            "email" => $email 
+            "email" => $email ,
+            "payload_qty" => count($payloads)
         ];
     }
 

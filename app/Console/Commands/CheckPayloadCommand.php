@@ -40,13 +40,18 @@ class CheckPayloadCommand extends Command
      */
     public function handle()
     {
-       
+        $qty = 0;
         while(True) {
             
             $this->info("Starting process get payload");
             $result = PayloadService::PrettyPayload();
             echo json_encode($result, JSON_PRETTY_PRINT);
             sleep(60);
+            $qty++;
+
+            if($qty == $result['payload_qty']){
+               break;
+            }
         }
         
         

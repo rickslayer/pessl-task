@@ -7,7 +7,7 @@ use App\Jobs\Job;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Metos\Services\EmailSender; 
+use Metos\Services\EmailSenderService; 
 use Illuminate\Support\Facades\Cache;
 use Metos\Services\LogService;
 
@@ -32,7 +32,7 @@ class SendEmailJob extends Job implements ShouldQueue
     public function handle()
     {
         try {
-            EmailSender::sendEmail($this->to, $this->html);
+            EmailSenderService::sendEmail($this->to, $this->html);
 
         } catch (\Throwable $e){
             return array(

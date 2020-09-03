@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\SendEmailJob;
 use Illuminate\Http\JsonResponse;
-use Metos\Services\EmailSender;
+use Metos\Services\EmailSenderService;
 use Metos\Services\AlertService;
 use Metos\Services\PayloadService;
 
@@ -26,7 +26,7 @@ class PayloadController extends Controller
          * Check if the parameters are not good
          */
         if($confirm_alert['send']) {
-            $sender = EmailSender::checkEmailFrequence($payload['email'], $confirm_alert['html']);
+            $sender = EmailSenderService::checkEmailFrequence($payload['email'], $confirm_alert['html']);
             /**
              * Check if needs to send an e-mail. Waiting 15 min to send another
              * Dispatch to the queue

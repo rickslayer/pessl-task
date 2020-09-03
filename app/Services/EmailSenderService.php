@@ -8,7 +8,7 @@ use SendGrid\Mail\Mail;
 use Illuminate\Support\Facades\Cache;
 
 
-class EmailSender {
+class EmailSenderService {
 
     /**
      *  Main responsable for send email

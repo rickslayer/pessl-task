@@ -30,7 +30,7 @@
         ],
         "files": [
             "app/Helpers/DataParser.php",
-            "app/Services/EmailSender.php",
+            "app/Services/EmailSenderService.php",
             "app/Services/LogService.php",
             "app/Services/PayloadService.php",
             "app/Services/AlertService.php"

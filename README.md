@@ -27,7 +27,10 @@ In case of any questions, don't hesitate to ask.
 ## Lumen Framework
 
 - I used the Lumen framework because in the benchmark with other micro-framework his got 1900 request per second
-<img src="https://res.cloudinary.com/prra/image/upload/v1599065168/benchmark-microframework_l365r6.png">
+<p align="center"><img src="https://res.cloudinary.com/prra/image/upload/v1599065168/benchmark-microframework_l365r6.png"></p>
 
 ## Redis Cache
-- For the proporse of this app, I used Redis to control and send e-mail asyncronosly
+- For the proporse of this app, I used Redis to control and send e-mail asynchronos
+<p align="center"><img src="https://res.cloudinary.com/prra/image/upload/v1599175341/redisvxAWS_qlyaax.png" style="text-align:center;">
+ <a href="https://stackshare.io/stackups/amazon-sqs-vs-redis">Source</a>
+ </p>

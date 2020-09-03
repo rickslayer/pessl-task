@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Metos\Helpers\DataParser;
 
+/**
+ * Mockup for the payloads
+ */
 class PayloadService
 {
     public static function getPayload() :string
@@ -141,8 +144,11 @@ class PayloadService
     public static function PrettyPayload() 
     {
         $payload = self::getPayload();
-        $header = DataParser::parseHeader(substr($payload, 0, 14));
-        $data   = DataParser::parseData(substr($payload, 14));
+        $header = DataParser::parseHeader(substr(base64_decode($payload),0,14));
+        $data   = DataParser::parseData(substr(base64_decode($payload),14));
+        /**
+         * links an email to the serial number
+         */
         $email  = DataParser::getEmailbySerial($header);
         
         return [

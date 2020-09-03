@@ -2,16 +2,28 @@
 namespace Metos\Services;
 
 use Illuminate\Support\Facades\Cache;
-
+/**
+ * class responsible for checking the need to send an alert 
+ */
 class AlertService
 {
-    public static function sendAlert($payload)
+    /**
+     * Method responsible for defining the need to send
+     * the alert and check the parameters
+     * 
+     * @param array $payload - the payload data plus e-mail
+     */
+    public static function sendAlert($payload) : array
     {
         $parameters = $payload['data'];
         $email = $payload['email'];
         $result = [];
         $messages = [];
         $timestamp = date('Y-m-d H:i:s');
+        /**
+         * Recovers data that has been saved in the Cache by the user. 
+         * If it does not exist, search for data on environment variables
+         */
         $cached_params = Cache::store("redis")->get("{$email}_data");
         if ($cached_params != null) {
             $user_parameters = [
@@ -21,7 +33,6 @@ class AlertService
                 "dew_point" =>  $cached_params['dw'] ?? getenv("PARAMETER_DEW_POINT_MIN"),
             ];    
         }
-
         
         if (round($parameters['battery']) < $user_parameters['battery']) {
             $messages[] = "<p>Caution: Battery it's lower than parameter: {$user_parameters['battery']} Given: {$parameters['battery']} -  DateTime: {$timestamp}</p></p>";
@@ -38,6 +49,7 @@ class AlertService
         if (round($parameters['dew_mn']) < $user_parameters['dew_point']) {
             $messages[] = "<p>Caution: Dew Point it's lower than parameter: {$user_parameters['dew_point']} - Given: {$parameters['dew_mn']} DateTime: {$timestamp}</p>";
         }
+
         if (count($messages) > 0) {
             $result = array (
                 "message" => "There are alerts to send",
@@ -52,7 +64,5 @@ class AlertService
         }
 
         return $result;
-
-      
     }
 }

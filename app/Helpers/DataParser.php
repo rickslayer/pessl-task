@@ -55,7 +55,7 @@ class DataParser
         $serial = $header['serial'];
 
         $emails = [
-            "4A414138" => "paulo@actio.net.br"
+            "0340039D" => "paulo@actio.net.br"
         ];
 
         $email = isset($emails[$serial]) ? $emails[$serial] : 'mail@notfoundemail.com';

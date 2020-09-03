@@ -18,7 +18,7 @@ class EmailSender {
      * return array
      */
 
-    public static function sendEmail($to, $html)
+    public static function sendEmail($to, $html) : array
     {
         $response = array();
         if(filter_var($to, FILTER_VALIDATE_EMAIL)) {
@@ -68,14 +68,20 @@ class EmailSender {
         );
     }
 
+    /**
+     * Controls email to send between 15 and 15 minutes
+     * @param string $to - email to send
+     * @param string $html - a string for a html body
+     * 
+     * return array
+     */
     public static function checkEmailFrequence($to, $html) : array
     {
         $result = array();
         $html_key = $to . "_html";
+        $list_html = Cache::store('redis')->get($html_key);
         $list_html[] = $html;
         if (Cache::store('redis')->get($to)) {
-            $list_html = Cache::store('redis')->get($html_key);
-            $list_html[] = $html;
             Cache::store('redis')->forever($html_key, $list_html);
             $result['need_to_send'] = false;
             $result['html'] = $list_html;

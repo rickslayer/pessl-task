@@ -3,39 +3,49 @@ namespace App\Http\Controllers;
 
 use App\Jobs\SendEmailJob;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Metos\Helpers\DataParser; 
 use Metos\Services\EmailSender;
-use Illuminate\Support\Facades\Queue;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Redis;
 use Metos\Services\AlertService;
-use Metos\Services\LogService;
 use Metos\Services\PayloadService;
 
 class PayloadController extends Controller
 {
+    /**
+     * Endpoint responsible for read the Payload 
+     * and send email asynchronous if it's necessary
+     * 
+     * return json
+     */
     public function index() : JsonResponse
     {
-         $payload = PayloadService::PrettyPayload();
-         
-         $confirm_alert = AlertService::sendAlert($payload);
+        $result = array();
+        $payload = PayloadService::PrettyPayload();
 
-         if($confirm_alert['send']) {
-            $result = EmailSender::checkEmailFrequence($payload['email'], $confirm_alert['html']);
+        $confirm_alert = AlertService::sendAlert($payload);
 
-            EmailSender::sendEmail($payload['email'], $confirm_alert['html']);
-
-            if($result['need_to_send']) {
-                $this->dispatch(new SendEmailJob($payload['email'], $result['html']));
+        /**
+         * Check if the parameters are not good
+         */
+        if($confirm_alert['send']) {
+            $sender = EmailSender::checkEmailFrequence($payload['email'], $confirm_alert['html']);
+            /**
+             * Check if needs to send an e-mail. Waiting 15 min to send another
+             * Dispatch to the queue
+             */
+           if($sender['need_to_send']) {
+                $enqued_email = $this->dispatch(new SendEmailJob($payload['email'], $sender['html']));
+                if ($enqued_email) {
+                    $result['message'] = "Message send to the queue";
+                    $result['queue_id'] = $enqued_email;
+                }
+            } else {
+                $result['message'] = "Message storage waiting 15 min to send";
             }
+
+        } else {
+            $result['message'] = "No need Alert";
          }
  
-         
-        return response()
-        ->json($payload);
-    }
-
-   
+         return response()
+         ->json([$result],202);
+    }   
 }

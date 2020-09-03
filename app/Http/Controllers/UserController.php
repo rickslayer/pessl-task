@@ -1,21 +1,24 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Jobs\SendEmailJob;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Metos\Helpers\DataParser; 
-use Metos\Services\EmailSender;
-use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Redis;
-use Metos\Services\AlertService;
-use Metos\Services\LogService;
-use Metos\Services\PayloadService;
 
+/**
+ * Class responsible for save in cache
+ * data from frontend where the user
+ * puts the parameters
+ */
 class UserController extends Controller
 {
+    /**
+     * Add parameters to a user email
+     * @param $request
+     * 
+     * return Illuminate\Http\JsonResponse
+     */
     public function add(Request $request) : JsonResponse
     {
         $data = $request->all();
@@ -35,10 +38,15 @@ class UserController extends Controller
                     "success" => false
                 ],200);
         }
-        
     }
 
-    public function get(Request $request)
+    /**
+     * get parameters from redis to return to the frontend
+     * @param $email
+     * 
+     * return Illuminate\Http\JsonResponse
+     */
+    public function get(Request $request) :JsonResponse
     {
         $email = $request->input('userEmail');
         $saved_info = Cache::store('redis')->get("{$email}_data");

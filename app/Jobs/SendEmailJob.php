@@ -26,7 +26,9 @@ class SendEmailJob extends Job implements ShouldQueue
         $this->to = $to;
         $this->html = $html;
     }
-
+    /**
+     * Main responsable for dispatch asynchronous e-mails 
+     */
     public function handle()
     {
         try {

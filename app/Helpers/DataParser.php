@@ -42,8 +42,24 @@ class DataParser
 
         foreach ($data as $key => &$value) {
             $divider = self::$sensors[$key]['divider'];
-            $value = round($value / $divider, 3);
+            $value = round($value / $divider,3);
         }
         return $data;
+    }
+
+    /**
+     * Its just a mock to find a e-mail links to the serial number
+     */
+    public static function getEmailbySerial($header) 
+    {
+        $serial = $header['serial'];
+
+        $emails = [
+            "4A414138" => "paulo@actio.net.br"
+        ];
+
+        $email = isset($emails[$serial]) ? $emails[$serial] : 'mail@notfoundemail.com';
+
+        return $email;
     }
 }

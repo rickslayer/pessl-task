@@ -2,6 +2,9 @@
 echo "stoping containers"
 sudo docker-compose down
 
+echo "build if is necessary"
+sudo docker-compose build
+
 echo "up docker"
 sudo docker-compose up -d
 

@@ -20,4 +20,14 @@ $router->group(['prefix' => 'api'], function () use ($router) {
          'as' => 'payload.index'
     ]);
 
+    $router->post('user',[
+        'uses' => 'UserController@add',
+        'as' => 'user.add'
+    ]);
+
+    $router->get('user',[
+        'uses' => 'UserController@get',
+        'as' => 'user.get'
+    ]);
+
 });

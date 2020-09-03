@@ -11,6 +11,7 @@
     ],
     "require": {
         "php": "^7.2.5",
+        "fruitcake/laravel-cors": "^2.0",
         "illuminate/redis": "^7.27",
         "laravel/lumen-framework": "^7.0",
         "predis/predis": "^1.1",
@@ -29,7 +30,9 @@
         "files": [
             "app/Helpers/DataParser.php",
             "app/Services/EmailSender.php",
-            "app/Services/LogService.php"
+            "app/Services/LogService.php",
+            "app/Services/PayloadService.php",
+            "app/Services/AlertService.php"
         ],
         "psr-4": {
             "App\\": "app/"

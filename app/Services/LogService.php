@@ -11,8 +11,6 @@ class LogService
     {
         $logs = Cache::store('redis')->get('logs');
 
-        dd($logs);
-
         if ($logs == null) {
             Cache::store('redis')->put('logs', $message, 172800);
         }else {

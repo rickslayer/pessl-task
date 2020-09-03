@@ -64,6 +64,8 @@ $app->configure('app');
 
 $app->configure('database');
 $app->configure('queue');
+$app->configure('cors');
+
 
 
 /*
@@ -77,9 +79,12 @@ $app->configure('queue');
 |
 */
 
-// $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
-// ]);
+ $app->middleware([
+     App\Http\Middleware\CorsMiddleware::class,
+     Fruitcake\Cors\HandleCors::class,
+ ]);
+
+
 
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
@@ -96,6 +101,7 @@ $app->configure('queue');
 |
 */
    $app->register(Illuminate\Redis\RedisServiceProvider::class);
+   $app->register(Fruitcake\Cors\CorsServiceProvider::class);
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);

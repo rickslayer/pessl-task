@@ -1,0 +1,48 @@
+2020-09-03 07:05:44,478 CRIT Supervisor running as root (no user in config file)
+2020-09-03 07:05:44,480 INFO supervisord started with pid 25759
+2020-09-03 07:05:45,484 INFO spawned: 'run-payload_00' with pid 25762
+2020-09-03 07:05:45,533 INFO exited: run-payload_00 (exit status 1; not expected)
+2020-09-03 07:05:46,537 INFO spawned: 'run-payload_00' with pid 25763
+2020-09-03 07:05:46,611 INFO exited: run-payload_00 (exit status 1; not expected)
+2020-09-03 07:05:48,617 INFO spawned: 'run-payload_00' with pid 25771
+2020-09-03 07:05:48,667 INFO exited: run-payload_00 (exit status 1; not expected)
+2020-09-03 07:05:51,674 INFO spawned: 'run-payload_00' with pid 25772
+2020-09-03 07:05:51,726 INFO exited: run-payload_00 (exit status 1; not expected)
+2020-09-03 07:05:52,727 INFO gave up: run-payload_00 entered FATAL state, too many start retries too quickly
+2020-09-03 07:06:31,326 WARN received SIGINT indicating exit request
+2020-09-03 07:08:26,054 CRIT Supervisor running as root (no user in config file)
+2020-09-03 07:08:26,056 INFO supervisord started with pid 25936
+2020-09-03 07:08:27,061 INFO spawned: 'run-payload_00' with pid 25939
+2020-09-03 07:08:27,117 INFO exited: run-payload_00 (exit status 1; not expected)
+2020-09-03 07:08:28,121 INFO spawned: 'run-payload_00' with pid 25940
+2020-09-03 07:08:28,178 INFO exited: run-payload_00 (exit status 1; not expected)
+2020-09-03 07:08:30,183 INFO spawned: 'run-payload_00' with pid 25948
+2020-09-03 07:08:30,235 INFO exited: run-payload_00 (exit status 1; not expected)
+2020-09-03 07:08:33,241 INFO spawned: 'run-payload_00' with pid 25949
+2020-09-03 07:08:33,295 INFO exited: run-payload_00 (exit status 1; not expected)
+2020-09-03 07:08:34,296 INFO gave up: run-payload_00 entered FATAL state, too many start retries too quickly
+2020-09-03 07:08:55,624 WARN received SIGINT indicating exit request
+2020-09-03 07:13:16,067 CRIT Supervisor running as root (no user in config file)
+2020-09-03 07:13:16,069 INFO supervisord started with pid 26439
+2020-09-03 07:13:17,074 INFO spawned: 'run-payload_00' with pid 26442
+2020-09-03 07:13:17,306 INFO exited: run-payload_00 (exit status 0; not expected)
+2020-09-03 07:13:18,311 INFO spawned: 'run-payload_00' with pid 26458
+2020-09-03 07:13:18,502 INFO exited: run-payload_00 (exit status 0; not expected)
+2020-09-03 07:13:20,505 INFO spawned: 'run-payload_00' with pid 26480
+2020-09-03 07:13:20,724 INFO exited: run-payload_00 (exit status 0; not expected)
+2020-09-03 07:13:23,729 INFO spawned: 'run-payload_00' with pid 26507
+2020-09-03 07:13:23,968 INFO exited: run-payload_00 (exit status 0; not expected)
+2020-09-03 07:13:24,969 INFO gave up: run-payload_00 entered FATAL state, too many start retries too quickly
+2020-09-03 07:14:46,754 WARN received SIGINT indicating exit request
+2020-09-03 07:15:20,207 CRIT Supervisor running as root (no user in config file)
+2020-09-03 07:15:20,210 INFO supervisord started with pid 26714
+2020-09-03 07:15:21,213 INFO spawned: 'run-payload_00' with pid 26717
+2020-09-03 07:15:21,648 INFO exited: run-payload_00 (exit status 0; not expected)
+2020-09-03 07:15:22,649 INFO spawned: 'run-payload_00' with pid 26740
+2020-09-03 07:15:22,895 INFO exited: run-payload_00 (exit status 0; not expected)
+2020-09-03 07:15:24,898 INFO spawned: 'run-payload_00' with pid 26755
+2020-09-03 07:15:25,137 INFO exited: run-payload_00 (exit status 0; not expected)
+2020-09-03 07:15:28,141 INFO spawned: 'run-payload_00' with pid 26777
+2020-09-03 07:15:28,383 INFO exited: run-payload_00 (exit status 0; not expected)
+2020-09-03 07:15:29,384 INFO gave up: run-payload_00 entered FATAL state, too many start retries too quickly
+2020-09-03 07:15:59,735 WARN received SIGINT indicating exit request

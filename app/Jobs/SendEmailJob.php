@@ -42,6 +42,6 @@ class SendEmailJob extends Job implements ShouldQueue
                 "message" => "Email to {$this->to} sent with success",
                 "timestamp" => time()
             )
-            );
+        );
     }
 }

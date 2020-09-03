@@ -60,8 +60,7 @@ In case of any questions, don't hesitate to ask.
     
 2.  **Cron to call payloads**
     - ```php
-    cd my-hello-world-starter/
-    gatsby develop
+    
     ```
 3.  **API**
 4.  **Process Payload and Create Alert**

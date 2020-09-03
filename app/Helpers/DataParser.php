@@ -1,5 +1,4 @@
 <?php
-
 namespace Metos\Helpers;
 
 class DataParser

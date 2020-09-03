@@ -21,3 +21,10 @@ Enclosed in this folder you will find 3 files.
 For achieving your task you can use any additional service that you might need. You can use any method to deliver payloads to your script - POST data, API request, CLI
 
 In case of any questions, don't hesitate to ask.
+
+# Solution 
+
+## Lumen Framework
+
+- I used the Lumen framework because in the benchmark with other micro-framework his got 1900 request per second
+[img src="https://res.cloudinary.com/prra/image/upload/v1599065168/benchmark-microframework_l365r6.png"]

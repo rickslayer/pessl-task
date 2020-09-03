@@ -27,4 +27,7 @@ In case of any questions, don't hesitate to ask.
 ## Lumen Framework
 
 - I used the Lumen framework because in the benchmark with other micro-framework his got 1900 request per second
-[img src="https://res.cloudinary.com/prra/image/upload/v1599065168/benchmark-microframework_l365r6.png"]
+[<img src="https://res.cloudinary.com/prra/image/upload/v1599065168/benchmark-microframework_l365r6.png">
+
+## Redis Cache
+- For the proporse of this app, I used Redis to control and send e-mail asyncronosly

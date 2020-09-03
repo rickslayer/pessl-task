@@ -31,6 +31,23 @@ In case of any questions, don't hesitate to ask.
 
 ## Redis Cache
 - For the proporse of this app, I used Redis to control and send e-mail asynchronos
-<p align="center"><img src="https://res.cloudinary.com/prra/image/upload/v1599175341/redisvxAWS_qlyaax.png" style="text-align:center;">
- <a href="https://stackshare.io/stackups/amazon-sqs-vs-redis">Source</a>
- </p>
+<p align="center">
+<a href="https://stackshare.io/stackups/amazon-sqs-vs-redis">
+    <img src="https://res.cloudinary.com/prra/image/upload/v1599175341/redisvxAWS_qlyaax.png">
+</a>
+</p>
+
+## Architecture
+<p align="center">
+<a href="#">
+    <img src="https://res.cloudinary.com/prra/image/upload/v1599175839/arch_ydoirt.png">
+</a>
+</p>
+1. ** Payloads **
+2. ** User manually call payloads **
+2. ** Cron to call payloads **
+3. ** API **
+4. ** Process Payload and Create Alert **
+5. ** Redis Queue **
+6. ** Process Queue and Send Email**
+

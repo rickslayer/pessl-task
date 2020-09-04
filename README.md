@@ -60,8 +60,10 @@ In case of any questions, don't hesitate to ask.
     - To access the frontend **`http://localhost:8001/front`**
     <p align="center">
     <img src="https://res.cloudinary.com/prra/image/upload/v1599176885/parameters_h1dwbi.png">
+
     - Endpoint: **`pessl.localhost:8001/api/`** - I used port 8001 because 8000 is usually busy
     </p>
+    
     - Behind the code:
     ```php
         app/public/front/index.html

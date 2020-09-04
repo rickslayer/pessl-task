@@ -35,6 +35,7 @@ In case of any questions, don't hesitate to ask.
 
 ## ⚒ Redis Cache
 - For the proporse of this app, I used Redis to control and send e-mail asynchronos
+- Also is super fast.
 <p align="center">
 <a href="https://stackshare.io/stackups/amazon-sqs-vs-redis">
     <img src="https://res.cloudinary.com/prra/image/upload/v1599175341/redisvxAWS_qlyaax.png">
@@ -50,8 +51,8 @@ In case of any questions, don't hesitate to ask.
 
 1.  **Payloads**
 
-    -Database, or service that provides payloads from the weather station
-    -I mocked up a solution for simulates this service
+    - Database, or service that provides payloads from the weather station
+    - I mocked up a solution for simulates this service
     
 2.  **User manually call payloads**
     
@@ -59,7 +60,7 @@ In case of any questions, don't hesitate to ask.
     - I created a form where the user can save the parameters in cache (Redis) and it is linked to his email (just a plus)
     - To access the frontend **`http://localhost:8001/front`**
     <p align="center">
-    <img src="https://res.cloudinary.com/prra/image/upload/v1599219949/user_parameters_t2g6gh.png">
+    <img src="https://res.cloudinary.com/prra/image/upload/v1599240933/inicio_sini7s.gif">
 
     - Endpoint: **`pessl.localhost:8001/api/`** - I used port 8001 because 8000 is usually busy
     </p>
@@ -68,6 +69,7 @@ In case of any questions, don't hesitate to ask.
     ```php
         app/public/front/index.html
     ```
+    **`When you change the e-mail, I get info from Cache to fill all parameters automatically`**
     
 2.  **Command to call payloads**
 
@@ -199,5 +201,8 @@ In case of any questions, don't hesitate to ask.
 
     # Endpoint user data
     pessl.localhost:8001/api/user?email=${EMAIL}
+
+    # To acess php Redis Admin
+    pessl.localhost:8003
     
     ```

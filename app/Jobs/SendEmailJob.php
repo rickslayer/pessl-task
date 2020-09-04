@@ -32,7 +32,7 @@ class SendEmailJob extends Job implements ShouldQueue
     public function handle()
     {
         try {
-            EmailSenderService::sendEmail($this->to, $this->html);
+          EmailSenderService::sendEmail($this->to, $this->html);
 
         } catch (\Throwable $e){
             return array(
@@ -42,7 +42,7 @@ class SendEmailJob extends Job implements ShouldQueue
         LogService::add(
             array(
                 "message" => "Email to {$this->to} sent with success",
-                "timestamp" => time()
+                "timestamp" => date('Y-m-d H:i:s')
             )
         );
     }

@@ -1,6 +1,7 @@
 <?php
 namespace Metos\Services;
 
+use App\Jobs\SendEmailJob;
 use Illuminate\Support\Facades\Cache;
 /**
  * class responsible for checking the need to send an alert 
@@ -48,19 +49,31 @@ class AlertService
             $messages[] = "<p>Caution: Dew Point it's lower or equal than parameter: {$user_parameters['dew_point']} - Given: {$parameters['dew_mn']} DateTime: {$timestamp}</p>";
         }
 
+        /**
+         * Check if the parameters are not good
+         */
         if (count($messages) > 0) {
-            $result = array (
-                "message" => "There are alerts to send",
-                "html" => $messages,
-                "send" => true
-            );
+            $sender = EmailSenderService::checkEmailFrequence($email, $messages);
+            /**
+             * Check if needs to send an e-mail. Waiting 15 min to send another
+             * Dispatch to the queue
+             */
+           if($sender['need_to_send']) {
+                $enqued_email = dispatch(new SendEmailJob($email, $sender['html']))
+                                    ->onConnection('redis')
+                                    ->onQueue(getenv('REDIS_QUEUE_NAME'));
+                if ($enqued_email) {
+                    $result['message'] = "Message send to the queue";
+                }
+            } else {
+                $result['message'] = "Message storage waiting to send";
+            }
         } else {
             $result = array (
                 "message" => "There are no alerts to send",
                 "send" => false
             );
         }
-
         return $result;
     }
 }

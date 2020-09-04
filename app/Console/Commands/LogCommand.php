@@ -49,7 +49,7 @@ class LogCommand extends Command
                 $this->info('no data found');
             }
             
-            sleep(3);
+            sleep(30);
           
         }
         

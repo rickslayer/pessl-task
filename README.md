@@ -99,7 +99,6 @@ In case of any questions, don't hesitate to ask.
 
 6.  **Process Queue and Send Email**
 
-    - The special feature from Lumen call queue:listen resolve the queue
     ```shell
         php artisan queue:listen
     ```
@@ -151,7 +150,7 @@ In case of any questions, don't hesitate to ask.
 3. **Environment Variables**
    **`See the complete .env file`** 
    ```shell
-    #redis connetion
+    #redis connection
     QUEUE_CONNECTION=redis
     REDIS_CLIENT=predis
     
@@ -185,35 +184,36 @@ In case of any questions, don't hesitate to ask.
 
 4. **Unit Tests**
 
-   ```shell
-    #to run unit tests
-    vendor/bin/phpunit
-
-    #check if payload parameters its respect the user parameters
-    #change the PAYLOAD_TO_TEST env variable
-    vendor/bin/phpunit --filter parameters_check_up
+    ```shell
+     #to run unit tests
+     vendor/bin/phpunit
+ 
+     #check if payload parameters its respect the user parameters
+     #change the PAYLOAD_TO_TEST env variable
+     vendor/bin/phpunit --filter parameters_check_up
    ```
    <p align="center"><img src="https://res.cloudinary.com/prra/image/upload/v1599248368/ezgif-7-5262f84f3f35_hfs03c.gif"></p>
 
 5. **Lint code**
+
     ```shell
-    #to lint the code
-    vendor/bin/phplint
+     #to lint the code
+     vendor/bin/phplint
    ```
 
 ## 💫 Use
 
     ```shell
-    # Acess the frontend to input some parameters
-    pessl.localhost:8001/front
-
-    # Endpoint payload
-    pessl.localhost:8001/api/payload
-
-    # Endpoint user data
-    pessl.localhost:8001/api/user?email=${EMAIL}
-
-    # To acess php Redis Admin
-    pessl.localhost:8003
+     # Acess the frontend to input some parameters
+     pessl.localhost:8001/front
+ 
+     # Endpoint payload
+     pessl.localhost:8001/api/payload
+ 
+     # Endpoint user data
+     pessl.localhost:8001/api/user?email=${EMAIL}
+ 
+     # To acess php Redis Admin
+     pessl.localhost:8003
     
     ```

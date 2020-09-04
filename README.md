@@ -30,48 +30,48 @@ In case of any questions, don't hesitate to ask.
 
 ## Lumen Framework
 
-    - I used the Lumen framework because I believe he is fast enough to do the job.
-    <p align="center"><img src="https://res.cloudinary.com/prra/image/upload/v1599065168/benchmark-microframework_l365r6.png"></p>
+- I used the Lumen framework because I believe he is fast enough to do the job.
+<p align="center"><img src="https://res.cloudinary.com/prra/image/upload/v1599065168/benchmark-microframework_l365r6.png"></p>
 
 ## Redis Cache
-    - For the proporse of this app, I used Redis to control and send e-mail asynchronos
-    <p align="center">
-    <a href="https://stackshare.io/stackups/amazon-sqs-vs-redis">
-        <img src="https://res.cloudinary.com/prra/image/upload/v1599175341/redisvxAWS_qlyaax.png">
-    </a>
-    </p>
+- For the proporse of this app, I used Redis to control and send e-mail asynchronos
+<p align="center">
+<a href="https://stackshare.io/stackups/amazon-sqs-vs-redis">
+    <img src="https://res.cloudinary.com/prra/image/upload/v1599175341/redisvxAWS_qlyaax.png">
+</a>
+</p>
 
 ## Architecture
-    <p align="center">
-    <a href="#">
-        <img src="https://res.cloudinary.com/prra/image/upload/v1599175839/arch_ydoirt.png">
-    </a>
-    </p>
-    1.  **Payloads**
+<p align="center">
+<a href="#">
+    <img src="https://res.cloudinary.com/prra/image/upload/v1599175839/arch_ydoirt.png">
+</a>
+</p>
+1.  **Payloads**
 
-        -Database, or service that provides payloads from the weather station
-        -I mocked up a solution for simulates this service
-        
-    2.  **User manually call payloads**
-        
-        - I created an endpoint where it is possible to call one payload at a time and see the result of the converted payload
-        - I created a form where the user can save the parameters in cache (Redis) and it is linked to his email (just a plus)
-        - To access the frontend **`http://localhost:8001/front`**
-        <p align="center">
-        <img src="https://res.cloudinary.com/prra/image/upload/v1599176885/parameters_h1dwbi.png">
-        - Endpoint: **`pessl.localhost:8001/api/`** - I used port 8001 because 8000 is usually busy
-        </p>
-        - Behind the code:
-        ```php
-            app/public/front/index.html
-        ```
-        
-    2.  **Cron to call payloads**
-        - ```php
-        
-        ```
-    3.  **API**
-    4.  **Process Payload and Create Alert**
-    5.  **Redis Queue**
-    6.  **Process Queue and Send Email**
+    -Database, or service that provides payloads from the weather station
+    -I mocked up a solution for simulates this service
+    
+2.  **User manually call payloads**
+    
+    - I created an endpoint where it is possible to call one payload at a time and see the result of the converted payload
+    - I created a form where the user can save the parameters in cache (Redis) and it is linked to his email (just a plus)
+    - To access the frontend **`http://localhost:8001/front`**
+    <p align="center">
+    <img src="https://res.cloudinary.com/prra/image/upload/v1599176885/parameters_h1dwbi.png">
+    - Endpoint: **`pessl.localhost:8001/api/`** - I used port 8001 because 8000 is usually busy
+    </p>
+    - Behind the code:
+    ```php
+        app/public/front/index.html
+    ```
+    
+2.  **Cron to call payloads**
+    - ```php
+    
+    ```
+3.  **API**
+4.  **Process Payload and Create Alert**
+5.  **Redis Queue**
+6.  **Process Queue and Send Email**
 

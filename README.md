@@ -22,18 +22,18 @@ For achieving your task you can use any additional service that you might need. 
 
 In case of any questions, don't hesitate to ask.
 
-# Solution 
+# 🧠 Solution 
 
 <p align="center"><img src="https://www.metos.at/wp-content/uploads/2020/06/Pessl-Logo_metos_homepage.jpg"></p>
 <h1 align="center"> Send an alert asynchronos by e-mail</h1>
 
 
-## Lumen Framework
+## ⚒ Lumen Framework
 
 - I used the Lumen framework because I believe he is fast enough to do the job.
 <p align="center"><img src="https://res.cloudinary.com/prra/image/upload/v1599065168/benchmark-microframework_l365r6.png"></p>
 
-## Redis Cache
+## ⚒ Redis Cache
 - For the proporse of this app, I used Redis to control and send e-mail asynchronos
 <p align="center">
 <a href="https://stackshare.io/stackups/amazon-sqs-vs-redis">
@@ -41,7 +41,7 @@ In case of any questions, don't hesitate to ask.
 </a>
 </p>
 
-## Archtecture
+## 🏠 Archtecture
 <p align="center">
 <a href="#">
     <img src="https://res.cloudinary.com/prra/image/upload/v1599175839/arch_ydoirt.png">
@@ -171,7 +171,7 @@ In case of any questions, don't hesitate to ask.
 
     #default value for send e-mail frequency
     LIMIT_TIME_EMAIL=15
-    
+
     #main e-mail
     MAIN_EMAIL=paulo@actio.net.br
    ```
@@ -197,6 +197,7 @@ In case of any questions, don't hesitate to ask.
     # Endpoint payload
     pessl.localhost:8001/api/payload
 
-    # Endpoint user date
-    pessl.localhost:8001/api/user
+    # Endpoint user data
+    pessl.localhost:8001/api/user?email=${EMAIL}
+    
     ```

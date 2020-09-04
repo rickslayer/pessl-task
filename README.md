@@ -64,14 +64,14 @@ In case of any questions, don't hesitate to ask.
     - Endpoint: **`pessl.localhost:8001/api/`** - I used port 8001 because 8000 is usually busy
     </p>
 
-        - Behind the code:
-        ```php
-            app/public/front/index.html
-        ```
+    - Behind the code:
+    ```php
+        app/public/front/index.html
+    ```
     
 2.  **Command to call payloads**
 
-    - ```shell
+    ```shell
         php artisan cron:checkPayloadCommand
     ```
 3.  **API**
@@ -117,7 +117,7 @@ In case of any questions, don't hesitate to ask.
     ├── nginx
     ├── php7.3
     ├── redis
-    ├── phpmyredis
+    └── phpredisadmin
 
 2. **Start the project**
 
@@ -125,11 +125,33 @@ In case of any questions, don't hesitate to ask.
     #probably will take an while util install all dependencies
     docker-compose build
 
+    #up the containers
     docker-compose up -d
 
+    #create vendor folder
+    composer update
+
+    #run the lumen service
     php -S localhost:8001 -t public
 
     #checkup the containers IPS
     sudo docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(sudo docker ps -aq) 
 
+    #to run the payload service
+    php artisan cron:checkPayloadCommand
+
+    #to consumes the queue
+    php artisan queue:listen
+
     ```
+3. **Unit Tests**
+   ```shell
+    #to run unit tests
+    vendor/bin/phpunit
+   ```
+
+4. **Lint code**
+```shell
+    #to lint the code
+    vendor/bin/phplint
+   ```

@@ -74,14 +74,14 @@
 
     - Behind the code:
     ```php
-        app/public/front/index.html
+    app/public/front/index.html
     ```
     **`When you change the e-mail, I get info from Cache to fill all parameters automatically`**
     
 2.  **Command to call payloads**
 
     ```shell
-        php artisan cron:checkPayloadCommand
+    php artisan cron:checkPayloadCommand
     ```
 3.  **API**
 
@@ -95,9 +95,9 @@
     - Dispatch to queue
     - Code:
     ```php
-        app/Services/AlertService.php
-        app/Services/PayloadService.php
-        app/Services/LogService.php
+    app/Services/AlertService.php
+    app/Services/PayloadService.php
+    app/Services/LogService.php
     ```
 
 5.  **Redis Queue**
@@ -108,7 +108,7 @@
 6.  **Process Queue and Send Email**
 
     ```shell
-        php artisan queue:listen
+    php artisan queue:listen
     ```
 
 ## 🚀 Infrastructure and Install

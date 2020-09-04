@@ -79,7 +79,7 @@ In case of any questions, don't hesitate to ask.
 3.  **API**
 
     - Api to get payloads **`pessl.localhost:8001/api/payload`**
-    - Api to get and post user data  payloads **`pessl.localhost:8001/api/user`** (it's a plus)
+    - Api to get and post user data **`pessl.localhost:8001/api/user`** 
 
 4.  **Process Payload and Create Alert**
 
@@ -170,19 +170,30 @@ In case of any questions, don't hesitate to ask.
     PARAMETER_RELATIVE_HUMIDITY_MAX=90
     PARAMETER_AIR_TEMPERATURE_MIN=13
     PARAMETER_DEW_POINT_MIN=90
+    
+    #send payload frequency by seconds
+    SEND_PAYLOAD_FREQUENCY=15
 
-    #default value for send e-mail frequency
-    LIMIT_TIME_EMAIL=15
+    #default value for send e-mail frequency in hours
+    SEND_EMAIL_FREQUENCY=8
 
     #main e-mail
     MAIN_EMAIL=paulo@actio.net.br
+
+    # to test if a payload is match with de max or min parameters
+    PAYLOAD_TO_TEST=93F9gAFwAG8AAJ0DQANaCQAAmAe\/BL0ExAToA+gD6APo\/+j\/6P++BLwEAAAAAA8=
    ```
 
 4. **Unit Tests**
    ```shell
     #to run unit tests
     vendor/bin/phpunit
+
+    #check if payload parameters its respect the user parameters
+    #change the PAYLOAD_TO_TEST env variable
+    vendor/bin/phpunit --filter parameters_check_up
    ```
+   <p align="center"><img src="https://res.cloudinary.com/prra/image/upload/v1599248368/ezgif-7-5262f84f3f35_hfs03c.gif"></p>
 
 5. **Lint code**
     ```shell
@@ -193,8 +204,8 @@ In case of any questions, don't hesitate to ask.
 ## 💫 Use
 
     ```shell
-    # Acess the frontend just a plus to input some parameters
-    localhost:8001/front
+    # Acess the frontend to input some parameters
+    pessl.localhost:8001/front
 
     # Endpoint payload
     pessl.localhost:8001/api/payload

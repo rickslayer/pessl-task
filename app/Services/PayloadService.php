@@ -136,8 +136,6 @@ class PayloadService
             "L1nXgAFwAG8AAJ0DQAOiCQAAmgejBpsGrAZSA00DVgOdAJkApQCmBaUFHAAbAAA=",
         ];
 
-        
-
         return $data;
     }
 

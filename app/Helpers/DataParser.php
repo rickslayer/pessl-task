@@ -1,6 +1,8 @@
 <?php
 namespace Metos\Helpers;
 
+use Illuminate\Support\Facades\Cache;
+
 class DataParser
 {
     public static $sensors = [
@@ -53,9 +55,10 @@ class DataParser
     public static function getEmailbySerial($header) 
     {
         $serial = $header['serial'];
+        $main_email = Cache::store('redis')->get('MAIN_EMAIL');
 
         $emails = [
-            "0340039D" => getenv("MAIN_EMAIL")
+            "0340039D" => $main_email ?? getenv("MAIN_EMAIL")
         ];
 
         $email = isset($emails[$serial]) ? $emails[$serial] : 'mail@notfoundemail.com';

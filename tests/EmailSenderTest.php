@@ -10,12 +10,12 @@ class EmailSenderTest extends TestCase
     /** @test */
     public function send_email_and_check_return()
     {
-       $to = filter_var('contac@prra.dev', FILTER_VALIDATE_EMAIL);
-       $html = "<h1>teste email</h1>";
+       $to = filter_var('contact@prra.dev', FILTER_VALIDATE_EMAIL);
+       $html[] = "<h1>teste email</h1>";
        
        $this->assertEquals($to, 'contact@prra.dev');
        $this->assertNotNull($html);
-       
+       $this->assertIsArray($html);
        $response = EmailSenderService::sendEmail($to, $html);
        $this->assertIsArray($response);
        $this->assertArrayHasKey('status_code', $response);

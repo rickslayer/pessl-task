@@ -42,12 +42,14 @@ class CheckPayloadCommand extends Command
     public function handle()
     {
         $qty = 0;
+        $payload_frequency_seconds = (int)getenv('SEND_PAYLOAD_FREQUENCY', 15);
         while(true) {    
             $this->info("Starting process get payload");
             $payload = PayloadService::PrettyPayload();
             $alert = AlertService::sendAlert($payload);
             $this->info(json_encode($alert, JSON_PRETTY_PRINT));
-            sleep(3);
+           
+            sleep($payload_frequency_seconds);
             $qty++;
 
             if($qty == $payload['payload_qty']){

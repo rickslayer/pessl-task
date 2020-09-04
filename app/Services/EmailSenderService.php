@@ -16,7 +16,7 @@ class EmailSenderService {
      * @param string $to - email to send
      * @param string $html - a string for a html body
      * 
-     * return array
+     * @return array
      */
 
     public static function sendEmail($to, $html) : array
@@ -90,8 +90,8 @@ class EmailSenderService {
         }else {
             $main_email = Cache::store('redis')->get('MAIN_MAIL') ?? getenv('MAIN_MAIL');
             $user_param = Cache::store('redis')->get("{$main_email}_data");
-            $email_frequency =  $user_param['frequency_email'] ?? getenv('LIMIT_TIME_EMAIL',15);
-            Cache::store('redis')->put($to, $to, Carbon::now()->addMinutes($email_frequency )); //Default 15 min
+            $email_frequency =  $user_param['frequency_email'] ?? getenv('SEND_EMAIL_FREQUENCY',8);
+            Cache::store('redis')->put($to, $to, Carbon::now()->addMinutes($email_frequency )); //Default 8 hrs
             Cache::store('redis')->forever($html_key, $list_html);
             $result['need_to_send'] = true;
             $result['html'] = $list_html;

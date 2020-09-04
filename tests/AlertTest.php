@@ -3,6 +3,7 @@
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Cache;
+use Metos\Helpers\DataParser;
 use Metos\Services\PayloadService;
 
 class AlertTest extends TestCase
@@ -29,9 +30,9 @@ class AlertTest extends TestCase
     /** @test */
     public function parameters_check_up()
     {
-        $payload = PayloadService::PrettyPayload();
-        $email = $payload['email'];
-        $parameters = $payload['data'];
+        $payload = getenv('PAYLOAD_TO_TEST');
+        $parameters = DataParser::parseData(substr(base64_decode($payload),14));
+        $email = getenv('MAIN_EMAIL');
         $user_parameters = Cache::store("redis")->get("{$email}_data");
 
         $this->assertArrayHasKey('battery', $parameters);
@@ -42,10 +43,11 @@ class AlertTest extends TestCase
         $this->assertArrayHasKey('rh', $user_parameters);
         $this->assertArrayHasKey('air', $user_parameters);
         $this->assertArrayHasKey('dw', $user_parameters);
-        $this->assertLessThanOrEqual($parameters['battery'], $user_parameters['battery']);
-        $this->assertLessThanOrEqual($user_parameters['rh'], $parameters['rh_mx']);
-        $this->assertLessThanOrEqual($parameters['air_mn'], $user_parameters['air']);
-        $this->assertLessThanOrEqual($parameters['dew_mn'], $user_parameters['dw']);
+        $this->assertLessThanOrEqual( $parameters['battery'], (int)$user_parameters['battery']);
+        $this->assertGreaterThanOrEqual($parameters['rh_mx'] ,(int)$user_parameters['rh'] );
+        $this->assertLessThanOrEqual( $parameters['air_mn'] , (int)$user_parameters['air'] );
+        $this->assertLessThanOrEqual( $parameters['dew_mn'] , (int) $user_parameters['dw'] );
+        dump("payload tested ===>>",$payload );
 
     }
 }

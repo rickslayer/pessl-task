@@ -12,7 +12,7 @@ class UserTest extends TestCase
         $this->get('/api/user?userEmail=paulo@actio.net.br');
 
         $this->response->assertStatus(200);
-        $this->assertCount(5,Cache::store('redis')->get("paulo@actio.net.br_data"));
+        $this->assertCount(6,Cache::store('redis')->get("paulo@actio.net.br_data"));
     } 
     
     /** @test */

@@ -155,8 +155,8 @@ In case of any questions, don't hesitate to ask.
     #redis connetion
     QUEUE_CONNECTION=redis
     REDIS_CLIENT=predis
-    #look out the ip from redis container
-    REDIS_HOST=172.22.0.2
+    
+    REDIS_HOST=localhost
     REDIS_PASSWORD=null
     REDIS_PORT=6379
     #name of queue
@@ -185,6 +185,7 @@ In case of any questions, don't hesitate to ask.
    ```
 
 4. **Unit Tests**
+
    ```shell
     #to run unit tests
     vendor/bin/phpunit

@@ -69,12 +69,67 @@ In case of any questions, don't hesitate to ask.
             app/public/front/index.html
         ```
     
-2.  **Cron to call payloads**
-    - ```php
-    
+2.  **Command to call payloads**
+
+    - ```shell
+        php artisan cron:checkPayloadCommand
     ```
 3.  **API**
+
+    - Api to get payloads **`pessl.localhost:8001/api/payload`**
+    - Api to get and post user data  payloads **`pessl.localhost:8001/api/user`** (it's a plus)
+
 4.  **Process Payload and Create Alert**
+
+    - Place where I do the logic to process the payload and check parameters 
+    - Create an alert or not
+    - Dispatch to queue
+    - Code:
+    ```php
+        app/Services/AlertService.php
+        app/Services/PayloadService.php
+        app/Services/LogService.php
+    ```
+
 5.  **Redis Queue**
+
+    - I used Redis keys to control alert send
+    - I used Redis Queue for send e-mails
+
 6.  **Process Queue and Send Email**
 
+    - The special feature from Lumen call queue:listen resolve the queue
+    ```shell
+        php artisan queue:listen
+    ```
+
+## 🚀 Infrastructure and Install
+
+1.  **Install dependencies.**
+
+    I use docker/docker-compose to runs all environment 
+     ```shell
+    # check docker / docker-compose version
+    docker --version && docker-compose --version
+    ```
+    This environment contains:
+    .
+    ├── nginx
+    ├── php7.3
+    ├── redis
+    ├── phpmyredis
+
+2. **Start the project**
+
+    ```shell
+    #probably will take an while util install all dependencies
+    docker-compose build
+
+    docker-compose up -d
+
+    php -S localhost:8001 -t public
+
+    #checkup the containers IPS
+    sudo docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(sudo docker ps -aq) 
+
+    ```

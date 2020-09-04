@@ -203,6 +203,8 @@ In case of any questions, don't hesitate to ask.
 
 ## 💫 Use
 
+1. **Avaliable endpoints to acess**
+
     ```shell
      # Acess the frontend to input some parameters
      pessl.localhost:8001/front

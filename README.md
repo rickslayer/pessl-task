@@ -54,15 +54,14 @@ In case of any questions, don't hesitate to ask.
     - Database, or service that provides payloads from the weather station
     - I mocked up a solution for simulates this service
     
-2.  **User manually call payloads**
+2.  **User manually call payloads and create parameters**
     
     - I created an endpoint where it is possible to call one payload at a time and see the result of the converted payload
-    - I created a form where the user can save the parameters in cache (Redis) and it is linked to his email (just a plus)
-    - To access the frontend **`http://localhost:8001/front`**
+    - To access the frontend **`http://pessl.localhost:8001/front`**
     <p align="center">
     <img src="https://res.cloudinary.com/prra/image/upload/v1599240933/inicio_sini7s.gif">
 
-    - Endpoint: **`pessl.localhost:8001/api/`** - I used port 8001 because 8000 is usually busy
+    - Endpoint: **`pessl.localhost:8001/api/payload`**
     </p>
 
     - Behind the code:

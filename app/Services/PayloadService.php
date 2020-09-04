@@ -147,7 +147,7 @@ class PayloadService
         $random_index = rand(0, count($payloads));
         $payload = $payloads[$random_index];
         $header = DataParser::parseHeader(substr(base64_decode($payload),0,14));
-        $data   = DataParser::parseData(substr(base64_decode($payload),14));
+        $data = DataParser::parseData(substr(base64_decode($payload),14));
         /**
          * links an email to the serial number
          */

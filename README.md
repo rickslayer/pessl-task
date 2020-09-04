@@ -41,7 +41,7 @@ In case of any questions, don't hesitate to ask.
 </a>
 </p>
 
-## Architecture
+## Archtecture
 <p align="center">
 <a href="#">
     <img src="https://res.cloudinary.com/prra/image/upload/v1599175839/arch_ydoirt.png">
@@ -59,7 +59,7 @@ In case of any questions, don't hesitate to ask.
     - I created a form where the user can save the parameters in cache (Redis) and it is linked to his email (just a plus)
     - To access the frontend **`http://localhost:8001/front`**
     <p align="center">
-    <img src="https://res.cloudinary.com/prra/image/upload/v1599176885/parameters_h1dwbi.png">
+    <img src="https://res.cloudinary.com/prra/image/upload/v1599219949/user_parameters_t2g6gh.png">
 
     - Endpoint: **`pessl.localhost:8001/api/`** - I used port 8001 because 8000 is usually busy
     </p>
@@ -113,11 +113,10 @@ In case of any questions, don't hesitate to ask.
     docker --version && docker-compose --version
     ```
     This environment contains:
-    .
-    ├── nginx
-    ├── php7.3
-    ├── redis
-    └── phpredisadmin
+    - nginx
+    - php7.3
+    - redis
+    - phpredisadmin
 
 2. **Start the project**
 
@@ -143,15 +142,61 @@ In case of any questions, don't hesitate to ask.
     #to consumes the queue
     php artisan queue:listen
 
+    #to see logs from sended e-mails
+    php artisan cron:logs
+
     ```
-3. **Unit Tests**
+
+3. **Environment Variables**
+   **`See the complete .env file`** 
+   ```shell
+    #redis connetion
+    QUEUE_CONNECTION=redis
+    REDIS_CLIENT=predis
+    #look out the ip from redis container
+    REDIS_HOST=172.22.0.2
+    REDIS_PASSWORD=null
+    REDIS_PORT=6379
+    #name of queue
+    REDIS_QUEUE_NAME=send-email-alert
+
+    #api key from sendgrid to delivery fast emails
+    SEND_GRID_API_KEY=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
+
+    #default parameters from user
+    PARAMETER_BATERY_MIN=2300
+    PARAMETER_RELATIVE_HUMIDITY_MAX=90
+    PARAMETER_AIR_TEMPERATURE_MIN=13
+    PARAMETER_DEW_POINT_MIN=90
+
+    #default value for send e-mail frequency
+    LIMIT_TIME_EMAIL=15
+    
+    #main e-mail
+    MAIN_EMAIL=paulo@actio.net.br
+   ```
+
+4. **Unit Tests**
    ```shell
     #to run unit tests
     vendor/bin/phpunit
    ```
 
-4. **Lint code**
-```shell
+5. **Lint code**
+    ```shell
     #to lint the code
     vendor/bin/phplint
    ```
+
+## 💫 Use
+
+    ```shell
+    # Acess the frontend just a plus to input some parameters
+    localhost:8001/front
+
+    # Endpoint payload
+    pessl.localhost:8001/api/payload
+
+    # Endpoint user date
+    pessl.localhost:8001/api/user
+    ```

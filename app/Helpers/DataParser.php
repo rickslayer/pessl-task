@@ -48,14 +48,14 @@ class DataParser
     }
 
     /**
-     * Its just a mock to find a e-mail links to the serial number
+     * Its just a mock to find a way to links an email to serial number
      */
     public static function getEmailbySerial($header) 
     {
         $serial = $header['serial'];
 
         $emails = [
-            "0340039D" => "paulo@actio.net.br"
+            "0340039D" => getenv("MAIN_EMAIL")
         ];
 
         $email = isset($emails[$serial]) ? $emails[$serial] : 'mail@notfoundemail.com';

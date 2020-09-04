@@ -25,6 +25,7 @@ class UserController extends Controller
         $email = $data['userEmail'];
         if ($data != null && isset($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
             Cache::store('redis')->forever("{$email}_data", $data);
+            Cache::store('redis')->forever("MAIN_EMAIL", $email);
 
             return response()
             ->json([

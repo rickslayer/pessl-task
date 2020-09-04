@@ -2,6 +2,7 @@
 
 namespace Metos\Services;
 
+use Carbon\Carbon;
 use Exception;
 use SendGrid;
 use SendGrid\Mail\Mail;
@@ -87,7 +88,10 @@ class EmailSenderService {
             $result['html'] = $list_html;
             
         }else {
-            Cache::store('redis')->put($to, $to, 900);
+            $main_email = Cache::store('redis')->get('MAIN_MAIL') ?? getenv('MAIN_MAIL');
+            $user_param = Cache::store('redis')->get("{$main_email}_data");
+            $email_frequency =  $user_param['frequency_email'] ?? getenv('LIMIT_TIME_EMAIL',15);
+            Cache::store('redis')->put($to, $to, Carbon::now()->addMinutes($email_frequency )); //Default 15 min
             Cache::store('redis')->forever($html_key, $list_html);
             $result['need_to_send'] = true;
             $result['html'] = $list_html;

@@ -4,24 +4,23 @@ namespace App\Console\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Redis;
-use Metos\Services\PayloadService;
+use Metos\Services\LogService;
 
-class CheckPayloadCommand extends Command
+class LogCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'cron:checkPayloadCommand';
+    protected $signature = 'cron:log';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Responsable for check payloads';
+    protected $description = 'Responsable for show logs';
 
     /**
      * Create a new command instance.
@@ -40,22 +39,19 @@ class CheckPayloadCommand extends Command
      */
     public function handle()
     {
-        $qty = 0;
         while(True) {
             
-            $this->info("Starting process get payload");
-            $result = PayloadService::PrettyPayload();
-            echo json_encode($result, JSON_PRETTY_PRINT);
-            sleep(60);
-            $qty++;
-
-            if($qty == $result['payload_qty']){
-               break;
+            $this->info("Starting process get logs");
+            $result = LogService::get();
+            if($result != null){ 
+                $this->info($result);
+            }else {
+                $this->info('no data found');
             }
+            
+            sleep(3);
+          
         }
-        $this->info("Finish");
-        
-        
         
     }
 }

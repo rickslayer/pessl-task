@@ -247,7 +247,7 @@
     
     ```
 
-## 🚦 Troubleshooting
+## 🚫 Troubleshooting
 
  - Don't forget to run ``` composer update ```
  - Check if the port 8001 its already use by another container or process

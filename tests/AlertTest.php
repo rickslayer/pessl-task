@@ -43,10 +43,10 @@ class AlertTest extends TestCase
         $this->assertArrayHasKey('rh', $user_parameters);
         $this->assertArrayHasKey('air', $user_parameters);
         $this->assertArrayHasKey('dw', $user_parameters);
-        $this->assertLessThanOrEqual( $parameters['battery'], (int)$user_parameters['battery']);
-        $this->assertGreaterThanOrEqual($parameters['rh_mx'] ,(int)$user_parameters['rh'] );
-        $this->assertLessThanOrEqual( $parameters['air_mn'] , (int)$user_parameters['air'] );
-        $this->assertLessThanOrEqual( $parameters['dew_mn'] , (int) $user_parameters['dw'] );
+        $this->assertLessThanOrEqual( $parameters['battery'], (float)$user_parameters['battery']);
+        $this->assertGreaterThanOrEqual($parameters['rh_mx'] ,(float)$user_parameters['rh'] );
+        $this->assertLessThanOrEqual( $parameters['air_mn'] , (float)$user_parameters['air'] );
+        $this->assertLessThanOrEqual( $parameters['dew_mn'] , (float) $user_parameters['dw'] );
         dump("payload tested ===>>",$payload );
 
     }

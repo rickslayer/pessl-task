@@ -232,7 +232,6 @@
 
 2. **Avaliable endpoints to acess**
 
-    
     ```shell
      # Acess the frontend to input some parameters
      pessl.localhost:8001/front
@@ -247,3 +246,11 @@
      pessl.localhost:8003
     
     ```
+
+## 🚦 Troubleshooting
+
+ - Don't forget to run ``` composer update ```
+ - Check if the port 8001 its already use by another container or process
+ ```shell
+ lsof -i -n -P | grep 8001
+ ```

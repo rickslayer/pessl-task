@@ -73,8 +73,9 @@
 2.1  **Command to call payloads**
 
     ```shell
-    php artisan cron:checkPayloadCommand
+     php artisan cron:checkPayloadCommand
     ```
+
 2.2 **Api Save Parameters**
      - To access the frontend **`http://pessl.localhost:8001/front`**
     <p align="center">

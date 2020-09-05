@@ -33,7 +33,10 @@
 # 🧠 Solution 
 
 <p align="center"><img src="https://www.metos.at/wp-content/uploads/2020/06/Pessl-Logo_metos_homepage.jpg"></p>
-<h1 align="center"> Send an alert asynchronos by e-mail</h1>
+
+<h1 align="center"> Send an alert asynchronous by e-mail</h1>
+
+[How To Use (Step by Step)](https://github.com/rickslayer/pessl-task/wiki/How-to-use-the-solution)
 
 
 ## ⚒ Lumen Framework
@@ -42,7 +45,7 @@
 <p align="center"><img src="https://res.cloudinary.com/prra/image/upload/v1599065168/benchmark-microframework_l365r6.png"></p>
 
 ## ⚒ Redis Cache
-- For the proporse of this app, I used Redis to control and send e-mail asynchronos
+- For the proporse of this app, I used Redis to control and send e-mail asynchronous
 - Also is super fast.
 <p align="center">
 <a href="https://stackshare.io/stackups/amazon-sqs-vs-redis">
@@ -64,25 +67,27 @@
     
 2.  **User manually call payloads and create parameters**
     
-    - I created an endpoint where it is possible to call one payload at a time and see the result of the converted payload
+    - I created an endpoint where it is possible to call one payload at once
+    - Endpoint: **`pessl.localhost:8001/api/payload`**
+
     - To access the frontend **`http://pessl.localhost:8001/front`**
     <p align="center">
     <img src="https://res.cloudinary.com/prra/image/upload/v1599240933/inicio_sini7s.gif">
-
-    - Endpoint: **`pessl.localhost:8001/api/payload`**
     </p>
+     **`When you change the e-mail, I get info from Cache to fill all parameters automatically`**
 
-    - Behind the code:
+   - Behind the code:
     ```php
     app/public/front/index.html
     ```
-    **`When you change the e-mail, I get info from Cache to fill all parameters automatically`**
+   
     
 2.  **Command to call payloads**
 
     ```shell
     php artisan cron:checkPayloadCommand
     ```
+
 3.  **API**
 
     - Api to get payloads **`pessl.localhost:8001/api/payload`**
@@ -165,11 +170,17 @@
     REDIS_HOST=localhost
     REDIS_PASSWORD=null
     REDIS_PORT=6379
-    #name of queue
+    #name of queue to send email
     REDIS_QUEUE_NAME=send-email-alert
+
+    #name of queue to process payload
+    REDIS_PAYLOAD_QUEUE=receive-payload
 
     #api key from sendgrid to delivery fast emails
     SEND_GRID_API_KEY=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
+
+    #api key from sendinblue service to delivery fast emails
+    SEND_BLUE_API_KEY=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
 
     #default parameters from user
     PARAMETER_BATERY_MIN=2300
@@ -188,6 +199,8 @@
 
     # to test if a payload is match with de max or min parameters
     PAYLOAD_TO_TEST=93F9gAFwAG8AAJ0DQANaCQAAmAe\/BL0ExAToA+gD6APo\/+j\/6P++BLwEAAAAAA8=
+
+   
    ```
 
 4. **Unit Tests**

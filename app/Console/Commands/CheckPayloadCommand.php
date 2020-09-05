@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\ReceivePayloadJob;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Redis;
@@ -43,19 +44,28 @@ class CheckPayloadCommand extends Command
     {
         $qty = 0;
         $payload_frequency_seconds = (int)getenv('SEND_PAYLOAD_FREQUENCY', 15);
+
         while(true) {    
             $this->info("Starting process get payload");
+            
             $payload = PayloadService::PrettyPayload();
-            $alert = AlertService::sendAlert($payload);
-            $this->info(json_encode($alert, JSON_PRETTY_PRINT));
-           
-            sleep($payload_frequency_seconds);
-            $qty++;
+            
+            dispatch(new ReceivePayloadJob($payload))
+                    ->onConnection('redis') 
+                    ->onQueue(getenv('REDIS_PAYLOAD_QUEUE'));
+            
+            $this->info(json_encode($payload, JSON_PRETTY_PRINT));
+            $this->info("Finishing process get payload");
+            
 
-            if($qty == $payload['payload_qty']){
-               break;
+            if($qty == $payload['payload_qty']) {
+                break;
             }
+            $qty++;
+            
+            sleep($payload_frequency_seconds);
         }
+
         $this->info("Finish");
     }
 }

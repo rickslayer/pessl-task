@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Jobs\ReceivePayloadJob;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Metos\Services\AlertService;
 use Metos\Services\PayloadService;
@@ -9,16 +11,31 @@ class PayloadController extends Controller
 {
     /**
      * Endpoint responsible for read the Payload 
-     * and send alert if is needed
+     * and send to queue
      * 
-     * return json
+     * @return Illuminate\Http\JsonResponse
      */
     public function index() : JsonResponse
     {
-        $payload = PayloadService::PrettyPayload();
-        $alert = AlertService::sendAlert($payload);
+        $result = array();
+        try{
+            $payload = PayloadService::PrettyPayload();
+        
+            $enqueued = dispatch(new ReceivePayloadJob($payload))
+                    ->onConnection('redis') 
+                    ->onQueue(getenv('REDIS_PAYLOAD_QUEUE'));
+            
+            if($enqueued) {
+                $result['payload'] = $payload;
+                $result['enqueued'] = true;
+                $result['message'] = "processed payload with success";
+            }
 
+        } catch(Exception $e) {
+            throw $e;
+        }
+        
          return response()
-            ->json([$alert],202);
+            ->json([$result],202);
     }   
 }

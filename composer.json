@@ -12,6 +12,7 @@
     "require": {
         "php": "^7.2.5",
         "fruitcake/laravel-cors": "^2.0",
+        "illuminate/mail": "^7.27",
         "illuminate/redis": "^7.27",
         "laravel/lumen-framework": "^7.0",
         "predis/predis": "^1.1",

@@ -11,47 +11,38 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Metos\Services\EmailSenderService; 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Metos\Services\AlertService;
 use Metos\Services\LogService;
 
-class SendEmailJob extends Job implements ShouldQueue
+class ReceivePayloadJob extends Job implements ShouldQueue
 {
     use SerializesModels;
 
-    public $tries = 1;
+    public $tries = 2;
 
     public $job;
 
-    private $to;
+    private $payload;
 
-    private $html;
-
-    public function __construct($to, $html)
+    public function __construct($payload)
     {
-        $this->to = $to;
-        $this->html = $html;
+        $this->payload = $payload;
     }
     /**
-     * Main responsable for dispatch asynchronous e-mails 
+     * Main responsable for receive payload 
      */
     public function handle()
     {
         try {
-          $emailService = new EmailSenderService();
-          $emailService->setTo($this->to);
-          $emailService->setHtml($this->html);
-          $emailService->sendEmail();
+            AlertService::sendAlert($this->payload);
+            Log::info($this->payload);
 
         } catch (\Throwable $e){
             return array(
                 "error" => $e
             );
         }
-        LogService::add(
-            array(
-                "message" => "Email to {$this->to}",
-                "timestamp" => date('Y-m-d H:i:s')
-            )
-        );
+       
     }
     /**
      * The job failed to process.

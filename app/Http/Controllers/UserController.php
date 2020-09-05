@@ -5,6 +5,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class responsible for save in cache
@@ -17,7 +18,7 @@ class UserController extends Controller
      * Add parameters to a user email
      * @param $request
      * 
-     * return Illuminate\Http\JsonResponse
+     * @return Illuminate\Http\JsonResponse
      */
     public function add(Request $request) : JsonResponse
     {
@@ -45,11 +46,20 @@ class UserController extends Controller
      * get parameters from redis to return to the frontend
      * @param $email
      * 
-     * return Illuminate\Http\JsonResponse
+     * @return Illuminate\Http\JsonResponse
      */
     public function get(Request $request) :JsonResponse
     {
         $email = $request->input('userEmail');
+        
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL) || !isset($email)) {
+            return response()
+            ->json([
+                "message" => "Check the e-mail format",
+                "success" => false
+            ],200);
+        }
+
         $saved_info = Cache::store('redis')->get("{$email}_data");
         if($saved_info != null) {
             return response()

@@ -3,6 +3,8 @@ namespace Metos\Services;
 
 use App\Jobs\SendEmailJob;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
+
 /**
  * class responsible for checking the need to send an alert 
  */
@@ -16,6 +18,7 @@ class AlertService
      */
     public static function sendAlert($payload) : array
     {
+       
         $parameters = $payload['data'];
         $email = $payload['email'];
         $result = [];
@@ -53,7 +56,10 @@ class AlertService
          * Check if the parameters are not good
          */
         if (count($messages) > 0) {
-            $sender = EmailSenderService::checkEmailFrequence($email, $messages);
+            $emailService = new EmailSenderService();
+            $emailService->setTo($email);
+            $emailService->setHtml($messages);
+            $sender = $emailService->checkEmailFrequence();
             /**
              * Check if needs to send an e-mail. Waiting 15 min to send another
              * Dispatch to the queue
@@ -74,6 +80,10 @@ class AlertService
                 "send" => false
             );
         }
+    
+        Log::info($result['message']);
+        Log::info($sender['need_to_send']);
         return $result;
     }
 }
+

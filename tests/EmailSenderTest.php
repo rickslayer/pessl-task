@@ -16,7 +16,10 @@ class EmailSenderTest extends TestCase
        $this->assertEquals($to, 'contact@prra.dev');
        $this->assertNotNull($html);
        $this->assertIsArray($html);
-       $response = EmailSenderService::sendEmail($to, $html);
+       $emailService = new EmailSenderService();
+       $emailService->setTo($to);
+       $emailService->setHtml($html);
+       $response = $emailService->sendEmail();
        $this->assertIsArray($response);
        $this->assertArrayHasKey('status_code', $response);
        $this->assertEquals(202, $response['status_code']);

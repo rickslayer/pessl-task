@@ -34,7 +34,7 @@ class LogCommand extends Command
 
     /**
      * Execute the console command.
-     * Este comando é responsável por atualizar o status da configuração de envio de orçamentos para finalizado
+     * 
      * @return mixed
      */
     public function handle()
@@ -43,15 +43,14 @@ class LogCommand extends Command
             
             $this->info("Starting process get logs");
             $result = LogService::get();
-            if($result != null){ 
+
+            if($result != null) { 
                 $this->info($result);
-            }else {
+            } else {
                 $this->info('no data found');
             }
             
             sleep(30);
-          
         }
-        
     }
 }

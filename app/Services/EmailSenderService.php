@@ -10,23 +10,29 @@ use Illuminate\Support\Facades\Cache;
 
 
 class EmailSenderService {
+    /**
+     * @param string $to - email to send
+     */
+    private $to;
+
+    /**
+     * @param string $html - a string for a html body
+     */
+    private $html;
 
     /**
      *  Main responsable for send email
-     * @param string $to - email to send
-     * @param string $html - a string for a html body
-     * 
      * @return array
      */
 
-    public static function sendEmail($to, $html) : array
+    public function sendEmail() : array
     {
         $response = array();
-        if(filter_var($to, FILTER_VALIDATE_EMAIL)) {
+        if(filter_var($this->getTo(), FILTER_VALIDATE_EMAIL)) {
 
             $html_body = "";
             $html_body .= "<ul>";
-            foreach ($html as $items) {
+            foreach ($this->html as $items) {
                 if (is_array($items) ){
                     foreach($items as $li) {
                         $html_body .= "<li>$li</li>";
@@ -37,13 +43,13 @@ class EmailSenderService {
                 
             }
             $html_body .= "</ul>"; 
-           
+
             $email = new Mail(); 
             $email->setFrom("alerts@metos.at", "Metos Field Climate");
             $email->setSubject("Alert from FieldClimate Wheater Station");
-            $email->addTo($to);
+            $email->addTo($this->getTo());
             $email->addContent(
-                "text/html", "<h1>Checkout alerts from Fieldclimate</h1>${html_body}"
+                "text/html", "<h1>Checkout alerts from Fieldclimate</h1></br></br>${html_body}"
             );
 
             $sendgrid = new SendGrid(getenv('SEND_GRID_API_KEY'));
@@ -62,27 +68,25 @@ class EmailSenderService {
                 "success" => false
             );
         }
+        $status_code = $response->statusCode();
         return array(
-            "status_code" => $response->statusCode(),
+            "status_code" => $status_code ,
             "message" => "Email sent successfull",
             "success" => true
         );
     }
 
     /**
-     * Controls email to send between 15 and 15 minutes
-     * @param string $to - email to send
-     * @param string $html - a string for a html body
-     * 
-     * return array
+     * Controls email to send
+     * @return array
      */
-    public static function checkEmailFrequence($to, $html) : array
+    public function checkEmailFrequence() : array
     {
         $result = array();
-        $html_key = $to . "_html";
+        $html_key = $this->to . "_html";
         $list_html = Cache::store('redis')->get($html_key);
-        $list_html[] = $html;
-        if (Cache::store('redis')->get($to)) {
+        $list_html[] = $this->getHtml();
+        if (Cache::store('redis')->get($this->to)) {
             Cache::store('redis')->forever($html_key, $list_html);
             $result['need_to_send'] = false;
             $result['html'] = $list_html;
@@ -90,9 +94,13 @@ class EmailSenderService {
         }else {
             $main_email = Cache::store('redis')->get('MAIN_MAIL') ?? getenv('MAIN_MAIL');
             $user_param = Cache::store('redis')->get("{$main_email}_data");
+
             $email_frequency =  $user_param['frequency_email'] ?? getenv('SEND_EMAIL_FREQUENCY',8);
-            Cache::store('redis')->put($to, $to, Carbon::now()->addMinutes($email_frequency )); //Default 8 hrs
+
+            Cache::store('redis')->put($this->getTo(),$this->getTo(), Carbon::now()->addHours($email_frequency)); //Default 8 hrs
+            Cache::store('redis')->put($this->getTo(), $this->getTo(),10); //Default 8 hrs
             Cache::store('redis')->forever($html_key, $list_html);
+
             $result['need_to_send'] = true;
             $result['html'] = $list_html;
         }
@@ -100,4 +108,20 @@ class EmailSenderService {
         return $result;
 
     }
+
+    public function getTo(){
+		return $this->to;
+	}
+
+	public function setTo($to){
+		$this->to = $to;
+	}
+
+	public function getHtml(){
+		return $this->html;
+	}
+
+	public function setHtml($html){
+		$this->html = $html;
+	}
 }

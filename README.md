@@ -225,10 +225,14 @@
 
 ## 💫 Use
 
-1. **Avaliable endpoints to acess**
+1. **How to use**
+   
+   **[How To Use (Step by Step)](https://github.com/rickslayer/pessl-task/wiki/How-to-use-the-solution)**
 
-    [How To Use (Step by Step)](https://github.com/rickslayer/pessl-task/wiki/How-to-use-the-solution)
 
+2. **Avaliable endpoints to acess**
+
+    
     ```shell
      # Acess the frontend to input some parameters
      pessl.localhost:8001/front

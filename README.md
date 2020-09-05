@@ -56,7 +56,7 @@
 ## 🏠 Archtecture
 <p align="center">
 <a href="#">
-    <img src="https://res.cloudinary.com/prra/image/upload/v1599175839/arch_ydoirt.png">
+    <img src="https://res.cloudinary.com/prra/image/upload/v1599332188/diagram_ckhzwi.png">
 </a>
 </p>
 

@@ -65,56 +65,58 @@
     - Database, or service that provides payloads from the weather station
     - I mocked up a solution for simulates this service
     
-2.  **User manually call payloads and create parameters**
+2.  **User manually call payloads**
     
     - I created an endpoint where it is possible to call one payload at once
     - Endpoint: **`pessl.localhost:8001/api/payload`**
-
-    - To access the frontend **`http://pessl.localhost:8001/front`**
-    <p align="center">
-    <img src="https://res.cloudinary.com/prra/image/upload/v1599240933/inicio_sini7s.gif">
-    </p>
-     **`When you change the e-mail, I get info from Cache to fill all parameters automatically`**
-
-   - Behind the code:
-    ```php
-    app/public/front/index.html
-    ```
-   
     
-2.  **Command to call payloads**
+2.1  **Command to call payloads**
 
     ```shell
     php artisan cron:checkPayloadCommand
     ```
+2.2 **Api Save Parameters**
+     - To access the frontend **`http://pessl.localhost:8001/front`**
+    <p align="center">
+      <img src="https://res.cloudinary.com/prra/image/upload/v1599240933/inicio_sini7s.gif">
+    </p>
+     **`When you change the e-mail, I get info from Cache to fill all parameters automatically`**
 
-3.  **API**
+3.  **API Process Payload**
 
     - Api to get payloads **`pessl.localhost:8001/api/payload`**
     - Api to get and post user data **`pessl.localhost:8001/api/user`** 
-
-4.  **Process Payload and Create Alert**
-
     - Place where I do the logic to process the payload and check parameters 
     - Create an alert or not
     - Dispatch to queue
-    - Code:
-    ```php
-    app/Services/AlertService.php
-    app/Services/PayloadService.php
-    app/Services/LogService.php
-    ```
 
-5.  **Redis Queue**
+4.  **Redis**
 
-    - I used Redis keys to control alert send
-    - I used Redis Queue for send e-mails
+    - I used Redis keys to control alert frequencies
+    - I used Redis Queue for e-mails and payloads
+    - I used Redis to save parameters
 
-6.  **Process Queue and Send Email**
+5  **Process payload queue**
+
+    - Run the service who check if it's necessary send an alert based on a payload
 
     ```shell
-    php artisan queue:listen
+    php artisan queue:listen --queue=receive-payload
     ```
+5.1  **Process e-mail queue**
+
+    - Process the queue to send alerts.
+
+    ```shell
+    php artisan queue:listen --queue=send-email-alert
+    ```
+
+6.  **Email Sent**
+    - You configure the e-mail frequency in the frontend page **`http://pessl.localhost:8001/front`**
+
+    ![email sent](https://res.cloudinary.com/prra/image/upload/v1599327679/ezgif-7-342d670c242d_mzlp4a.gif)
+
+    
 
 ## 🚀 Infrastructure and Install
 

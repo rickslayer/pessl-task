@@ -70,13 +70,13 @@
     - I created an endpoint where it is possible to call one payload at once
     - Endpoint: **`pessl.localhost:8001/api/payload`**
     
-2.1  **Command to call payloads**
+2.1.  **Command to call payloads**
 
     ```shell
      php artisan cron:checkPayloadCommand
     ```
 
-2.2 **Api Save Parameters**
+2.2. **Api Save Parameters**
      - To access the frontend **`http://pessl.localhost:8001/front`**
     <p align="center">
       <img src="https://res.cloudinary.com/prra/image/upload/v1599240933/inicio_sini7s.gif">
@@ -87,7 +87,7 @@
 
     - Api to get payloads **`pessl.localhost:8001/api/payload`**
     - Api to get and post user data **`pessl.localhost:8001/api/user`** 
-    - Place where I do the logic to process the payload and check parameters 
+    - Place where I did the logic to process the payload and check parameters 
     - Create an alert or not
     - Dispatch to queue
 
@@ -97,14 +97,14 @@
     - I used Redis Queue for e-mails and payloads
     - I used Redis to save parameters
 
-5  **Process payload queue**
+5.  **Process payload queue**
 
     - Run the service who check if it's necessary send an alert based on a payload
 
     ```shell
     php artisan queue:listen --queue=receive-payload
     ```
-5.1  **Process e-mail queue**
+5.1.  **Process e-mail queue**
 
     - Process the queue to send alerts.
 
@@ -226,6 +226,8 @@
 ## 💫 Use
 
 1. **Avaliable endpoints to acess**
+
+    [How To Use (Step by Step)](https://github.com/rickslayer/pessl-task/wiki/How-to-use-the-solution)
 
     ```shell
      # Acess the frontend to input some parameters

@@ -138,7 +138,11 @@ class PayloadService
 
         return $data;
     }
-
+    /**
+     *  Responsible for return the payload decoded
+     *  Responsible for includes an e-mail linked 
+     *  with the serial-number payload
+     */
     public static function PrettyPayload() 
     {
         $payloads = self::getPayload();

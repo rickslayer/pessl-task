@@ -51,8 +51,8 @@ class EmailSenderService {
             $email->addContent(
                 "text/html", "<h1>Checkout alerts from Fieldclimate</h1></br></br>${html_body}"
             );
-
-            $sendgrid = new SendGrid(getenv('SEND_GRID_API_KEY'));
+            $key =getenv('SEND_GRID_API_KEY','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');
+            $sendgrid = new SendGrid($key);
             try {
                  $response = $sendgrid->send($email);
                 

@@ -18,7 +18,6 @@ class AlertService
      */
     public static function sendAlert($payload) : array
     {
-       
         $parameters = $payload['data'];
         $email = $payload['email'];
         $result = [];
@@ -26,7 +25,7 @@ class AlertService
         $timestamp = date('Y-m-d H:i:s');
         /**
          * Recovers data that has been saved in the Cache by the user. 
-         * If it does not exist, search for data on environment variables
+         * If it does not exist, search for data in environment variables
          */
         $cached_params = Cache::store("redis")->get("{$email}_data");
         $user_parameters = [
@@ -36,24 +35,24 @@ class AlertService
             "dew_point" =>  $cached_params['dw'] ?? getenv("PARAMETER_DEW_POINT_MIN"),
         ];    
         
-        if (round($parameters['battery']) <= $user_parameters['battery']) {
+        if (round($parameters['battery']) <= round($user_parameters['battery'])) {
             $messages[] = "<p>Caution: Battery it's lower or equal than parameter: {$user_parameters['battery']} Given: {$parameters['battery']} -  DateTime: {$timestamp}</p></p>";
         }
 
-        if (round($parameters['rh_mx']) >= $user_parameters['humidity']) {
+        if (round($parameters['rh_mx']) >= round($user_parameters['humidity'])) {
             $messages[] = "<p>Caution: Relative Humidity it's higher or equal than parameter: {$user_parameters['humidity']} Given: {$parameters['rh_mx']} - DateTime: {$timestamp}</p>";
         }
 
-        if (round($parameters['air_mn']) <= $user_parameters['air_temperature']) {
+        if (round($parameters['air_mn']) <= round($user_parameters['air_temperature'])) {
             $messages[] = "<p>Caution: Air Temperature it's lower or equal than parameter: {$user_parameters['air_temperature']} - Given: {$parameters['air_mn']} DateTime: {$timestamp}</p>";
         }
 
-        if (round($parameters['dew_mn']) <= $user_parameters['dew_point']) {
+        if (round($parameters['dew_mn']) <= round($user_parameters['dew_point'])) {
             $messages[] = "<p>Caution: Dew Point it's lower or equal than parameter: {$user_parameters['dew_point']} - Given: {$parameters['dew_mn']} DateTime: {$timestamp}</p>";
         }
 
         /**
-         * Check if the parameters are not good
+         * Check if the parameters in payload are not good
          */
         if (count($messages) > 0) {
             $emailService = new EmailSenderService();
@@ -61,7 +60,7 @@ class AlertService
             $emailService->setHtml($messages);
             $sender = $emailService->checkEmailFrequence();
             /**
-             * Check if needs to send an e-mail. Waiting 15 min to send another
+             * Check if needs to send an e-mail.Based on the parameter frequency
              * Dispatch to the queue
              */
            if($sender['need_to_send']) {
@@ -82,7 +81,7 @@ class AlertService
         }
     
         Log::info($result['message']);
-        Log::info($sender['need_to_send']);
+        
         return $result;
     }
 }

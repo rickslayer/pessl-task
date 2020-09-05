@@ -181,8 +181,6 @@
     #api key from sendgrid to delivery fast emails
     SEND_GRID_API_KEY=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
 
-    #api key from sendinblue service to delivery fast emails
-    SEND_BLUE_API_KEY=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
 
     #default parameters from user
     PARAMETER_BATERY_MIN=2300

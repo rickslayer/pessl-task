@@ -7,6 +7,9 @@ use Illuminate\Http\JsonResponse;
 use Metos\Services\AlertService;
 use Metos\Services\PayloadService;
 
+/**
+ * Endpoint to process payload
+ */
 class PayloadController extends Controller
 {
     /**

@@ -1,0 +1,35 @@
+version: "3.6"
+services:
+    
+    nginx:
+        build:
+            context: ./infrastructure/nginx
+        volumes:
+            - "/home/rickslayer/actio-workspace/PesslTask/api:/var/www/pessl"
+        ports:
+            - "8000:8000"
+        restart: always
+        links:
+            - php
+    php:
+        build:
+            context: ./infrastructure/php-7
+        restart: always
+        volumes:
+            - ./www/:/var/www
+            - ./infrastructure/php-7/php.ini:/usr/local/etc/php/conf.d/php.ini
+    redis:
+        build:
+            context: ./infrastructure/redis
+        ports:
+            - 6379:6379
+        restart: always
+    redisadmin:
+        image: erikdubbelboer/phpredisadmin
+        environment:
+            REDIS_1_HOST: redis
+            REDIS_1_NAME: redis
+        ports:
+            - 8003:80
+        links:
+            - redis

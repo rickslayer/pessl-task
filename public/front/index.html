@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>METOS by Pessl Instruments </title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha512-M5KW3ztuIICmVIhjSqXe01oV2bpe248gOxqmlcYrEzAvws7Pw3z6BK0iGbrwvdrUQUhi3eXgtxp5I8PDo9YfjQ==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha512-MoRNloxbStBcD8z3M/2BmnT+rg4IsMxPkXaGh2zD6LGNNFE80W3onsAhRcMAMrSoyWL9xD7Ert0men7vR8LUZg==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap-grid.css" integrity="sha512-DzmGNgIQwEOIPPXy8jcqf47Ru+UIHcE4WFsk4uiE2A4y5QtG7GO4fcL5huJvLT24HndMGMvMpYiNm3iSLlzXPg==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha512-kBFfSXuTKZcABVouRYGnUo35KKa1FBrYgwG4PAx7Z2Heroknm0ca2Fm2TosdrrI356EDHMW383S3ISrwKcVPUw==" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+        .green-metos{
+            color: #007858;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row ">
+            <div class="col-sm-12 mt-5 pt-5 text-center">
+                <img src="https://www.metos.at/wp-content/uploads/2020/06/Pessl-Logo_metos_homepage.jpg">
+                <h1 class="mt-4 mb5-4 green-metos">Parameters to configure alerts</h1>
+            </div>
+            <div class="col-sm-8 offset-sm-2 mt-5 p-5 border">
+                <form>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="userEmail">Email address</label>
+                            <input type="email" class="form-control" id="userEmail" placeholder="Enter email">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="frequency_email">Email frequency in hours</label>
+                            <input type="number" class="form-control" id="frequency_email">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="battery">Battery MIN</label>
+                            <input type="number" class="form-control" id="battery">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="rh">Relative Humidity MAX %</label>
+                            <input type="number" class="form-control" id="rh">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="air">Air Temperature MIN</label>
+                            <input type="number" class="form-control" id="air">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="dw">Dew Point MIN </label>
+                            <input type="number" class="form-control" id="dw">
+                        </div>
+                        <div class="form-group col-sm-6">
+                          <button type="button" class="btn btn-success" id="btnSave">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<script>
+$(function(){
+    $('#userEmail').on('change',() => {
+        let email = $('#userEmail').val();
+        if (email.length > 0) {
+            $.ajax({
+                url: `http://localhost:8001/api/user?userEmail=${email}`,
+                type: "GET",
+                crossDomain: true,
+            })
+            .done((response) => {
+                if(response.success) {
+                    $("#battery").val(response.message.battery);
+                    $("#rh").val(response.message.rh);
+                    $("#air").val(response.message.air);
+                    $("#dw").val(response.message.dw);
+                    $("#frequency_email").val(response.message.frequency_email);
+                }else {
+                    swal("Ops", response.message, "error");
+                }
+            });
+        }
+    });
+
+    $('#btnSave').on('click', () => {
+        let userEmail = $("#userEmail").val();
+        let battery = $("#battery").val();
+        let rh = $("#rh").val();
+        let air = $("#air").val();
+        let dw = $("#dw").val();
+        let frequency_email = $("#frequency_email").val();
+
+        $.ajax({
+            url: 'http://localhost:8001/api/user',
+            type: "POST",
+            crossDomain: true,
+            data: {
+                userEmail,
+                battery,
+                rh,
+                air,
+                dw,
+                frequency_email
+            }
+        })
+        .done((response) => {
+            if(response.success) {
+                swal("Well Done!", response.message, "success");
+            }else {
+                swal("Ops", response.message, "error");
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>

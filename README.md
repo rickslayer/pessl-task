@@ -180,7 +180,11 @@
     REDIS_PAYLOAD_QUEUE=receive-payload
 
     #api key from sendgrid to delivery fast emails
+<<<<<<< HEAD
     SEND_GRID_API_KEY=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
+=======
+    SEND_GRID_API_KEY={SENDGRIDKEY}
+>>>>>>> 0ca66128f8ee4b66c8ad46e2c99491be54db1080
 
 
     #default parameters from user
